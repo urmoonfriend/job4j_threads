@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.net.URL;
 
 public class FileDownload {
-    public static void main(String[] args) throws Exception{
+    public static void main(String[] args) {
         String file = "https://raw.githubusercontent.com/peterarsentev/course_test/master/pom.xml";
         try (BufferedInputStream in = new BufferedInputStream(new URL(file).openStream());
             FileOutputStream fileOutputStream = new FileOutputStream("pom_tmp.xml")) {
@@ -16,7 +16,7 @@ public class FileDownload {
                 fileOutputStream.write(dataBuffer, 0, bytesRead);
                 Thread.sleep(1000);
             }
-        } catch (IOException e) {
+        } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
     }
