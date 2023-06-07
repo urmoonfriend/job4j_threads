@@ -1,9 +1,9 @@
 package kz.job4j.net;
 
-import java.io.*;
+import java.io.BufferedInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.net.URL;
-
-import static java.lang.System.in;
 
 public class FileDownload {
     public static void main(String[] args) throws Exception{
