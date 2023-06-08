@@ -32,9 +32,9 @@ public class Wget implements Runnable {
                     long timeElapsed = finish - start;
                     if (timeElapsed < 1000) {
                         Thread.sleep(1000 - timeElapsed);
-                        start = System.currentTimeMillis();
-                        dowloadData = 0;
                     }
+                    start = System.currentTimeMillis();
+                    dowloadData = 0;
                 }
             }
         } catch (IOException | InterruptedException e) {
@@ -50,8 +50,9 @@ public class Wget implements Runnable {
             int responseCode = connection.getResponseCode();
             return (responseCode == HttpURLConnection.HTTP_OK);
         } catch (Exception e) {
-            return false;
+            e.printStackTrace();
         }
+        return false;
     }
 
     public static boolean checkValidSpeed(String speed) {
@@ -59,8 +60,9 @@ public class Wget implements Runnable {
             Double.parseDouble(speed);
             return true;
         } catch (NumberFormatException e) {
-            return false;
+            e.printStackTrace();
         }
+        return false;
     }
 
     public static boolean canCreateFile(String filename) {
@@ -70,8 +72,9 @@ public class Wget implements Runnable {
             file.delete();
             return created;
         } catch (Exception e) {
-            return false;
+            e.printStackTrace();
         }
+        return false;
     }
 
     public static boolean areValidArgs(String[] args) {
