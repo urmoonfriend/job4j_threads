@@ -10,10 +10,10 @@ public class ParallelStreamExample {
         parallelStreamOrder();
     }
 
-     public static void oneStream () {
-        List<Integer> list = Arrays.asList(1,2,3,4,5);
+     public static void oneStream() {
+        List<Integer> list = Arrays.asList(1, 2, 3, 4, 5);
         Optional<Integer> multiplication = list.stream()
-                .reduce((a , b) -> a * b);
+                .reduce((a, b) -> a * b);
         multiplication.ifPresentOrElse(
                 result -> {
                     System.out.println(result);
@@ -24,8 +24,8 @@ public class ParallelStreamExample {
         );
     }
 
-    public static void parallelStream () {
-        List<Integer> list = Arrays.asList(1,2,3,4,5);
+    public static void parallelStream() {
+        List<Integer> list = Arrays.asList(1, 2, 3, 4, 5);
         Stream<Integer> stream = list.parallelStream();
         System.out.println(stream.isParallel());
         Optional<Integer> multiplication = stream.reduce((a, b) -> a * b);
