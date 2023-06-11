@@ -3,6 +3,9 @@ package kz.job4j;
 public final class DCLSingleton {
     private static volatile DCLSingleton inst;
 
+    private DCLSingleton() {
+    }
+
     public static DCLSingleton instOf() {
         if (inst == null) {
             synchronized (DCLSingleton.class) {
@@ -12,9 +15,6 @@ public final class DCLSingleton {
             }
         }
         return inst;
-    }
-
-    private DCLSingleton() {
     }
 
     public static void main(String[] args) {
