@@ -67,16 +67,7 @@ public final class AccountStorage {
                 accountFrom -> {
                     getById(toId).ifPresentOrElse(
                             accountTo -> {
-                                if (amount >= 0 && accountFrom.amount() >= amount) {
-                                    Account accountFromUpdated = new Account(accountFrom.id(), accountFrom.amount() - amount);
-                                    Account accountToUpdated =  new Account(accountTo.id(), accountTo.amount() + amount);
-                                    update(accountFromUpdated);
-                                    update(accountToUpdated);
-                                    result.set(true);
-                                } else {
-                                    System.out.println("Incorrect amount: " + amount);
-                                    result.set(false);
-                                }
+                                result.set(doTransfer(accountFrom, accountTo, amount));
                             },
                             () -> {
                                 System.out.println("Account not found: " + toId);
@@ -89,6 +80,21 @@ public final class AccountStorage {
                     result.set(false);
                 }
         );
+        return result.get();
+    }
+
+    public synchronized boolean doTransfer(Account accountFrom, Account accountTo, int amount) {
+        AtomicBoolean result = new AtomicBoolean(false);
+        if (amount >= 0 && accountFrom.amount() >= amount) {
+            Account accountFromUpdated = new Account(accountFrom.id(), accountFrom.amount() - amount);
+            Account accountToUpdated =  new Account(accountTo.id(), accountTo.amount() + amount);
+            update(accountFromUpdated);
+            update(accountToUpdated);
+            result.set(true);
+        } else {
+            System.out.println("Incorrect amount: " + amount);
+            result.set(false);
+        }
         return result.get();
     }
 }
