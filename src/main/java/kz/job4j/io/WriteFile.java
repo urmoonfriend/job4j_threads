@@ -15,8 +15,6 @@ public final class WriteFile {
             for (int i = 0; i < content.length(); i += 1) {
                 bos.write(content.charAt(i));
             }
-            bos.close();
-            o.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
