@@ -4,6 +4,7 @@ import net.jcip.annotations.NotThreadSafe;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -21,12 +22,9 @@ public class UserCache {
     }
 
     public List<User> findAll() {
-        List<User> userList = new ArrayList<>();
-        users.values()
+        return users.values()
                 .stream()
-                .forEach(user -> {
-                    userList.add(User.of(user.getName()));
-                });
-        return userList;
+                .map(user -> User.of(user.getName()))
+                .toList();
     }
 }
