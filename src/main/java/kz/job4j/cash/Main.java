@@ -13,5 +13,13 @@ public class Main {
                 .forEach(account -> {
                     System.out.println(account);
                 });
+
+        System.out.println();
+        accountStorage.delete(1);
+        System.out.println("after delete");
+        accountStorage.getAll().values().stream()
+                .forEach(account -> {
+                    System.out.println(account);
+                });
     }
 }
