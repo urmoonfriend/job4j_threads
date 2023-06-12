@@ -3,22 +3,26 @@ package kz.job4j.io.strategy.impl;
 import kz.job4j.io.strategy.ContentStrategy;
 
 import java.io.*;
+import java.util.function.Predicate;
 
-public final class SimpleContentStrategy implements ContentStrategy {
-    private final File file;
+public class ContentStrategyImpl implements ContentStrategy {
+    private File file;
 
-    public SimpleContentStrategy(File file) {
+    public ContentStrategyImpl(File file) {
         this.file = file;
     }
 
     @Override
-    public synchronized String getContent() {
+    public String getContent(Predicate<Character> filter) {
         try (InputStream i = new FileInputStream(file);
              BufferedInputStream bis = new BufferedInputStream(i)) {
             StringBuilder output = new StringBuilder();
             int data;
-            while ((data = bis.read()) > 0) {
-                output.append((char) data);
+            while ((data = bis.read()) != -1) {
+                char character = (char) data;
+                if (filter.test(character)) {
+                    output.append((char) data);
+                }
             }
             return output.toString();
         } catch (IOException e) {
