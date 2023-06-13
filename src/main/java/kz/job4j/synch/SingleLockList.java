@@ -8,7 +8,7 @@ import java.util.Iterator;
 import java.util.List;
 
 @ThreadSafe
-public class SingleLockList<T> implements Iterable<T> {
+public final class SingleLockList<T> implements Iterable<T> {
     @GuardedBy("this")
     private final List<T> list;
 
@@ -17,7 +17,7 @@ public class SingleLockList<T> implements Iterable<T> {
     }
 
     public synchronized void add(T value) {
-        copy(this.list).add(value);
+        this.list.add(value);
     }
 
     public synchronized T get(int index) {
