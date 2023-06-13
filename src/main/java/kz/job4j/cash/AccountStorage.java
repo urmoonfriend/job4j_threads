@@ -29,10 +29,13 @@ public final class AccountStorage {
     }
 
     public synchronized boolean transfer(int fromId, int toId, int amount) {
+        if (amount < 0) {
+            throw new IllegalStateException("Amount less than 0");
+        }
         var accountFromOpt = getById(fromId);
         var accountToOpt = getById(toId);
         if (accountFromOpt.isPresent() && accountToOpt.isPresent()) {
-            if (amount >= 0 && accountFromOpt.get().amount() >= amount) {
+            if (accountFromOpt.get().amount() >= amount) {
                 update(new Account(accountFromOpt.get().id(), accountFromOpt.get().amount() - amount));
                 update(new Account(accountToOpt.get().id(), accountToOpt.get().amount() + amount));
                 return true;

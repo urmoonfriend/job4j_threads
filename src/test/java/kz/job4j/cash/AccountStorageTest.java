@@ -2,6 +2,7 @@ package kz.job4j.cash;
 
 import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class AccountStorageTest {
     @Test
@@ -59,17 +60,18 @@ public class AccountStorageTest {
         assertThat(secondAccount.amount()).isEqualTo(186);
     }
 
-    @Test
-    void whenTransferThenIncorrectSum() {
+    @Test()
+    void whenTransferThenIncorrectSum() throws IllegalStateException {
         var storage = new AccountStorage();
         storage.add(new Account(1, 100));
         storage.add(new Account(2, 100));
-        boolean result = storage.transfer(1, 2, -5);
+        assertThrows(IllegalStateException.class, () -> {
+            storage.transfer(1, 2, -5);
+        });
         var firstAccount = storage.getById(1)
                 .orElseThrow(() -> new IllegalStateException("Not found account by id = 1"));
         var secondAccount = storage.getById(2)
                 .orElseThrow(() -> new IllegalStateException("Not found account by id = 1"));
-        assertThat(result).isEqualTo(false);
     }
 
     @Test
