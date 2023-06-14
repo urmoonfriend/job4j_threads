@@ -21,7 +21,7 @@ public final class SingleLockList<T> implements Iterable<T> {
     }
 
     public synchronized T get(int index) {
-        return copy(this.list).get(index);
+        return this.list.get(index);
     }
 
     @Override
