@@ -19,8 +19,8 @@ public class SimpleBlockingQueueTest {
         producerThread.start();
         consumerThread.start();
 
-        producerThread.join();
-        producerThread.join();
+        producerThread.join(5000);
+        producerThread.join(5000);
     }
 
 }
