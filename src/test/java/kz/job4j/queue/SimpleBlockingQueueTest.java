@@ -13,8 +13,8 @@ public class SimpleBlockingQueueTest {
         Producer producer = new Producer(queue);
         Consumer consumer = new Consumer(queue);
 
-        Thread producerThread = new Thread (producer);
-        Thread consumerThread = new Thread (consumer);
+        Thread producerThread = new Thread(producer);
+        Thread consumerThread = new Thread(consumer);
 
         producerThread.start();
         consumerThread.start();

@@ -9,7 +9,7 @@ public class Consumer implements Runnable {
 
     @Override
     public void run() {
-        while(true) {
+        while (true) {
             try {
                 Integer i = (Integer) queue.poll();
                 System.out.println("consume: " + i);

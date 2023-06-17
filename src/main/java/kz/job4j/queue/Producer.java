@@ -11,11 +11,11 @@ public class Producer implements Runnable {
 
     @Override
     public void run() {
-        while(true) {
+        while (true) {
             Integer i = new Random().nextInt(100);
             try {
                 queue.offer(i);
-                System.out.println("produce: "+i);
+                System.out.println("produce: " + i);
                 Thread.currentThread().sleep(2000);
             } catch (InterruptedException e) {
                e.printStackTrace();
