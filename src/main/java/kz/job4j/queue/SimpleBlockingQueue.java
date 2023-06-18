@@ -31,10 +31,7 @@ public class SimpleBlockingQueue<T> {
 
     public boolean isEmpty() {
         synchronized (this) {
-            while (this.queue.size() == 0) {
-                return true;
-            }
-            return false;
+            return this.queue.isEmpty();
         }
     }
 }
