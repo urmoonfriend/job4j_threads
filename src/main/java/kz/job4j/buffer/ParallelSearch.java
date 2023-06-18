@@ -37,7 +37,8 @@ public class ParallelSearch {
         try {
             Thread.sleep(5000);
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
+            Thread.currentThread().interrupt();
         }
         consumer.interrupt();
     }
