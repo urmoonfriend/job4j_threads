@@ -31,9 +31,14 @@ public class ParallelSearch {
                             Thread.currentThread().interrupt();
                         }
                     }
-                    consumer.interrupt();
                 }
-
         ).start();
+
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        consumer.interrupt();
     }
 }
