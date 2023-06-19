@@ -10,11 +10,10 @@ public class CacheTest {
         Base base = new Base(1, 1);
         cache.add(base);
         base.setName("Aidos");
-        boolean res =  cache.update(base);
-        Assertions.assertThat(res).isEqualTo(true);
-        Assertions.assertThat(base.getId()).isEqualTo(1);
-        Assertions.assertThat(base.getVersion()).isEqualTo(1);
-        Assertions.assertThat(base.getName()).isEqualTo("Aidos");
+        Base res =  cache.update(base);
+        Assertions.assertThat(base.getId()).isEqualTo(res.getId());
+        Assertions.assertThat(base.getVersion() + 1).isEqualTo(res.getVersion());
+        Assertions.assertThat(base.getName()).isEqualTo(res.getName());
     }
 
     @Test
@@ -24,8 +23,8 @@ public class CacheTest {
         cache.add(base);
         Base base2 = new Base(2, 2);
         base2.setName("Aidos");
-        boolean res = cache.update(base2);
-        Assertions.assertThat(res).isEqualTo(false);
+        Base res = cache.update(base2);
+        Assertions.assertThat(res).isEqualTo(null);
     }
 
     @Test
