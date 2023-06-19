@@ -12,7 +12,7 @@ public class CASCountTest {
 
         Thread first = new Thread(
                 () -> {
-                    System.out.println("first increment: " + casCount.get()+ " + 1 = " + (casCount.get()+1));
+                    System.out.println("first increment: " + casCount.get() + " + 1 = " + (casCount.get() + 1));
                     casCount.increment();
                 }
         );
@@ -20,7 +20,7 @@ public class CASCountTest {
         first.join();
         Thread second = new Thread(
                 () -> {
-                    System.out.println("second increment: " + casCount.get()+ " + 1 = " + (casCount.get()+1));
+                    System.out.println("second increment: " + casCount.get() + " + 1 = " + (casCount.get() + 1));
                     casCount.increment();
                 }
         );

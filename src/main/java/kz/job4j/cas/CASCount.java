@@ -8,7 +8,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class CASCount {
     private final AtomicInteger count = new AtomicInteger(0);
 
-    public void setCount (int val) {
+    public void setCount(int val) {
         count.set(val);
     }
 
@@ -16,7 +16,7 @@ public class CASCount {
         int oldVal = get();
         do {
             count.incrementAndGet();
-        } while (!count.compareAndSet(get(), oldVal+1));
+        } while (!count.compareAndSet(get(), oldVal + 1));
 
     }
 
