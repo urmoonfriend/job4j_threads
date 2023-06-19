@@ -6,14 +6,18 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 @ThreadSafe
 public class CASCount {
-    private final AtomicInteger count;
+    private final AtomicInteger count = new AtomicInteger(0);
 
-    public CASCount(int val) {
-        this.count = new AtomicInteger(val);
+    public void setCount (int val) {
+        count.set(val);
     }
 
     public void increment() {
-        count.incrementAndGet();
+        int oldVal = get();
+        do {
+            count.incrementAndGet();
+        } while (!count.compareAndSet(get(), oldVal+1));
+
     }
 
     public int get() {
