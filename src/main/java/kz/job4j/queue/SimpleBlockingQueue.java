@@ -10,9 +10,17 @@ import java.util.Queue;
 public class SimpleBlockingQueue<T> {
     @GuardedBy("this")
     private Queue<T> queue = new LinkedList<>();
+    private int limit;
+
+    public SimpleBlockingQueue(int size) {
+        this.limit = size;
+    }
 
     public void offer(T value) throws InterruptedException {
         synchronized (this) {
+            while (this.queue.size() == this.limit) {
+                this.wait();
+            }
             this.queue.offer(value);
             this.notifyAll();
         }

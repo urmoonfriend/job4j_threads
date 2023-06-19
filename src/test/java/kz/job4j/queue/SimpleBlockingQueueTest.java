@@ -12,7 +12,7 @@ public class SimpleBlockingQueueTest {
 
     @Test
     public void when() throws InterruptedException {
-        SimpleBlockingQueue queue = new SimpleBlockingQueue<Integer>();
+        SimpleBlockingQueue queue = new SimpleBlockingQueue<Integer>(5);
 
         Producer producer = new Producer(queue);
         Consumer consumer = new Consumer(queue);
@@ -30,7 +30,7 @@ public class SimpleBlockingQueueTest {
     @Test
     public void whenFetchAllThenGetIt() throws InterruptedException {
         final CopyOnWriteArrayList<Integer> buffer = new CopyOnWriteArrayList<>();
-        final SimpleBlockingQueue<Integer> queue = new SimpleBlockingQueue<>();
+        final SimpleBlockingQueue<Integer> queue = new SimpleBlockingQueue<>(5);
 
         Thread producer = new Thread(
                 () -> {
