@@ -16,31 +16,34 @@ public class ThreadPool {
             System.out.println("size: " + size);
             for (int i = 0; i < size; i++) {
                 int finalI = i;
-                threads.add(
-                        new Thread(
-                                () -> {
-                                    System.out.println("Thread: " + finalI);
-                                    try {
-                                        tasks.poll().run();
-                                    } catch (InterruptedException e) {
-                                        e.printStackTrace();
-                                        Thread.currentThread().interrupt();
-                                    }
+                Thread newThread = new Thread(
+                        () -> {
+                            System.out.println("Thread: " + finalI);
+                            try {
+                                while (!tasks.isEmpty() || !Thread.currentThread().isInterrupted()) {
+                                    tasks.poll().run();
                                 }
-                        )
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                                Thread.currentThread().interrupt();
+                            }
+                        }
                 );
+                threads.add(newThread);
+                newThread.start();
+                try {
+                    newThread.join();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                    Thread.currentThread().interrupt();
+                }
             }
         }
     }
 
-    public void work(Runnable work) {
+    public void work(Runnable work) throws InterruptedException {
         synchronized (this) {
-            try {
-                tasks.offer(work);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-                Thread.currentThread().interrupt();
-            }
+            tasks.offer(work);
         }
     }
 
@@ -48,13 +51,7 @@ public class ThreadPool {
         synchronized (this) {
             threads.stream().forEach(
                     thread -> {
-                        thread.start();
-                        try {
-                            thread.join();
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                            Thread.currentThread().interrupt();
-                        }
+                        thread.interrupt();
                     }
             );
         }
