@@ -12,7 +12,7 @@ public class Cache {
         return memory.putIfAbsent(model.getId(), model) == null;
     }
 
-    public Base update(Base model) {
+    public boolean update(Base model) {
         BiFunction<Integer, Base, Base> check
                 = (id, base) -> {
             if (model.getVersion() != base.getVersion()) {
@@ -20,7 +20,7 @@ public class Cache {
             }
             return new Base(model.getId(), model.getVersion() + 1, model.getName());
         };
-        return memory.computeIfPresent(model.getId(), check);
+        return memory.computeIfPresent(model.getId(), check) != null;
     }
 
     public void delete(Base model) {
