@@ -14,7 +14,7 @@ public class CacheTest {
         Base updatedBase = cache.get(1);
         Assertions.assertThat(res).isEqualTo(true);
         Assertions.assertThat(base.getId()).isEqualTo(updatedBase.getId());
-        Assertions.assertThat(base.getVersion()+1).isEqualTo(updatedBase.getVersion());
+        Assertions.assertThat(base.getVersion() + 1).isEqualTo(updatedBase.getVersion());
         Assertions.assertThat(base.getName()).isEqualTo(updatedBase.getName());
     }
 
