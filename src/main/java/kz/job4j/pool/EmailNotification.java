@@ -11,13 +11,10 @@ public class EmailNotification {
     public void emailTo(User user) {
         synchronized (this) {
             executorService.submit(
-                    new Runnable() {
-                        @Override
-                        public void run() {
-                            String subject = String.format("Notification {username} to email {email}", user.getUsername(), user.getEmail());
-                            String body = String.format("Add a new event to {username}", user.getUsername());
-                            send(subject, body, user.getEmail());
-                        }
+                    () -> {
+                        String subject = String.format("Notification {username} to email {email}", user.getUsername(), user.getEmail());
+                        String body = String.format("Add a new event to {username}", user.getUsername());
+                        send(subject, body, user.getEmail());
                     }
             );
         }
@@ -26,6 +23,14 @@ public class EmailNotification {
     public void close() {
         synchronized (this) {
             executorService.shutdown();
+            while (!executorService.isTerminated()) {
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                    Thread.currentThread().interrupt();
+                }
+            }
         }
     }
 
