@@ -1,12 +1,9 @@
 package kz.job4j.pool;
 
-import java.time.LocalDate;
 import java.util.Arrays;
-import java.util.Calendar;
 
 public class Main {
     public static void main(String[] args) {
-        //testThreadPool();
         testParallelMergeSort();
     }
 
