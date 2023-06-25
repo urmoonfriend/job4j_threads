@@ -33,8 +33,8 @@ public class ParallelSearch<T> extends RecursiveTask<Integer> {
     }
 
     protected int searchWhenLinear() {
-        for (int i = this.left; i < this.right; i++) {
-            if (this.array[i].equals(this.val)) {
+        for (int i = left; i < right; i++) {
+            if (array[i].equals(val)) {
                 return i;
             }
         }
