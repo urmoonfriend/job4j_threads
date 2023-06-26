@@ -12,33 +12,23 @@ public class RolColSumTest {
     public void whenSyncSumThenOk() {
         int[][] matrix = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
         RolColSum calcSum = new RolColSum();
-        RolColSum.Sums[] sums = calcSum.sum(matrix);
+        Sums[] sums = calcSum.sum(matrix);
         assertThat(sums.length).isEqualTo(3);
-
-        assertThat(sums[0].getRowSum()).isEqualTo(6);
-        assertThat(sums[0].getColSum()).isEqualTo(12);
-
-        assertThat(sums[1].getRowSum()).isEqualTo(15);
-        assertThat(sums[1].getColSum()).isEqualTo(15);
-
-        assertThat(sums[2].getRowSum()).isEqualTo(24);
-        assertThat(sums[2].getColSum()).isEqualTo(18);
+        Sums[] correctSums = {new Sums(6, 12), new Sums(15, 15), new Sums(24, 18)};
+        for (int i = 0; i < correctSums.length; i++) {
+            assertThat(sums[i]).isEqualTo(correctSums[i]);
+        }
     }
 
     @Test
     public void whenAsyncSumThenOk() throws ExecutionException, InterruptedException {
         int[][] matrix = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
         RolColSum calcSum = new RolColSum();
-        RolColSum.Sums[] sums = calcSum.asyncSum(matrix);
+        Sums[] sums = calcSum.asyncSum(matrix);
         assertThat(sums.length).isEqualTo(3);
-
-        assertThat(sums[0].getRowSum()).isEqualTo(6);
-        assertThat(sums[0].getColSum()).isEqualTo(12);
-
-        assertThat(sums[1].getRowSum()).isEqualTo(15);
-        assertThat(sums[1].getColSum()).isEqualTo(15);
-
-        assertThat(sums[2].getRowSum()).isEqualTo(24);
-        assertThat(sums[2].getColSum()).isEqualTo(18);
+        Sums[] correctSums = {new Sums(6, 12), new Sums(15, 15), new Sums(24, 18)};
+        for (int i = 0; i < correctSums.length; i++) {
+            assertThat(sums[i]).isEqualTo(correctSums[i]);
+        }
     }
 }
