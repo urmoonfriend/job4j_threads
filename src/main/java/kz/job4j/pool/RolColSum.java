@@ -15,18 +15,13 @@ public class RolColSum {
         return sums;
     }
 
-    public static Sums getSums(int[][] arr, int num) {
-        int result = 0;
-        Sums newSums = new Sums();
+    private static Sums getSums(int[][] arr, int num) {
+        int resultRow = 0, resultCol = 0;
         for (int j = 0; j < arr.length; j++) {
-            result += arr[num][j];
+            resultRow += arr[num][j];
+            resultCol += arr[j][num];
         }
-        newSums.setRowSum(result);
-        result = 0;
-        for (int i = 0; i < arr.length; i++) {
-            result += arr[i][num];
-        }
-        newSums.setColSum(result);
+        Sums newSums = new Sums(resultRow, resultCol);
         return newSums;
     }
 
@@ -43,7 +38,7 @@ public class RolColSum {
         return sums;
     }
 
-    public static CompletableFuture<Sums> getTaskByColAndRowNum(int[][] data, int num) {
+    private static CompletableFuture<Sums> getTaskByColAndRowNum(int[][] data, int num) {
         return CompletableFuture.supplyAsync(
                 () -> getSums(data, num)
         );
